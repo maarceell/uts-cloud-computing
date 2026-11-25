@@ -1,224 +1,238 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UTS Komputasi Awan - Marcel Hidayatullah Achlam</title>
-    <style>
-        /* Efek geser mulus saat tombol diklik */
-        html {
-            scroll-behavior: smooth;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTS Cloud Computing - Marcel Hidayatullah Achlam</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        /* Animasi bergerak */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    body {
+      height: 100vh;
+      overflow: hidden; /* Mencegah halaman di-scroll */
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+    }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    /* Navigasi Atas */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(15, 23, 42, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(0, 123, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
-        }
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f4f4f9;
-        }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #e2e8f0;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
 
-        /* BAGIAN 1: HALAMAN PALING DEPAN (HERO SECTION) */
-        .hero-section {
-            height: 100vh; /* Tinggi penuh 1 layar penuh */
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+    .nav-btn:hover, .nav-btn.active {
+      background: #38bdf8;
+      color: #0f172a;
+      font-weight: 600;
+    }
 
-        .hero-title {
-            font-size: 3rem;
-            margin: 0 0 15px 0;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: fadeInDown 1s ease-out;
-        }
+    /* Area Konten Utama (Tengah Layar) */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            margin-bottom: 35px;
-            max-width: 600px;
-            animation: fadeInUp 1s ease-out;
-        }
+    .tab-content {
+      display: none;
+      width: 100%;
+      max-width: 800px;
+      background: rgba(30, 41, 59, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      animation: fadeIn 0.3s ease;
+    }
 
-        /* Tombol menuju Profil Pribadi */
-        .btn-start {
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #0f2027;
-            background-color: #38bdf8;
-            border: none;
-            border-radius: 50px;
-            text-decoration: none;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
-            transition: all 0.3s ease;
-            animation: float 3s ease-in-out infinite;
-        }
+    .tab-content.active {
+      display: block;
+    }
 
-        .btn-start:hover {
-            background-color: #0284c7;
-            color: white;
-            transform: scale(1.08);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.6);
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        /* BAGIAN 2: HALAMAN PROFIL & TUGAS */
-        .profile-section {
-            min-height: 100vh;
-            padding: 50px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
+    /* Halaman Profil */
+    .profile-box {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
 
-        .container {
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
+    .profile-box img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #38bdf8;
+    }
 
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid #0284c7;
-            animation: pulseGlow 2s infinite;
-            transition: transform 0.3s ease;
-        }
+    .profile-info h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
 
-        .profile-img:hover {
-            transform: scale(1.05);
-        }
+    .profile-info p {
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
 
-        h2.name { 
-            margin: 10px 0 5px; 
-            color: #0284c7; 
-        }
+    .badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
 
-        .nim, .address { 
-            color: #666; 
-            margin: 5px 0; 
-        }
+    /* Halaman Tugas PDF */
+    .pdf-box {
+      text-align: center;
+    }
 
-        .section-title {
-            margin-top: 30px;
-            border-bottom: 2px solid #0284c7;
-            padding-bottom: 5px;
-            text-align: left;
-            color: #333;
-        }
+    .pdf-box h2 {
+      margin-bottom: 12px;
+      color: #38bdf8;
+    }
 
-        ul.task-list {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-        }
+    .pdf-box p {
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
 
-        ul.task-list li {
-            margin: 12px 0;
-        }
+    .pdf-frame {
+      width: 100%;
+      height: 320px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      margin-bottom: 18px;
+      background: #fff;
+    }
 
-        ul.task-list a {
-            display: block;
-            padding: 12px 18px;
-            background: #0284c7;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
+    .btn-download {
+      display: inline-block;
+      padding: 10px 22px;
+      background: #38bdf8;
+      color: #0f172a;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
 
-        ul.task-list a:hover {
-            background: #0369a1;
-            transform: translateX(8px);
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-        }
+    .btn-download:hover {
+      background: #7dd3fc;
+    }
 
-        .btn-back {
-            display: inline-block;
-            margin-top: 25px;
-            color: #666;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
+    footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
 
-        .btn-back:hover {
-            color: #0284c7;
-            text-decoration: underline;
-        }
-    </style>
+    /* Responsif untuk layar kecil */
+    @media (max-width: 640px) {
+      .profile-box {
+        flex-direction: column;
+        text-align: center;
+      }
+      nav {
+        padding: 14px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- HALAMAN 1: COVER UTS KOMPUTASI AWAN -->
-    <section id="beranda" class="hero-section">
-        <h1 class="hero-title">UTS KOMPUTASI AWAN</h1>
-        <p class="hero-subtitle">Landing Page Portofolio & Kumpulan Tugas Perkuliahan</p>
-        
-        <!-- Tombol untuk turun menuju profil pribadi -->
-        <a href="#profil" class="btn-start">Lihat Profil Pribadi ↓</a>
-    </section>
+  <nav>
+    <div class="logo">UTS Cloud Computing</div>
+    <div class="nav-buttons">
+      <button class="nav-btn active" onclick="openTab('profil', this)">Profil</button>
+      <button class="nav-btn" onclick="openTab('tugas', this)">Tugas PDF</button>
+    </div>
+  </nav>
 
-    <!-- HALAMAN 2: PROFIL PRIBADI & DAFTAR TUGAS -->
-    <section id="profil" class="profile-section">
-        <div class="container">
-            <img src="foto.jpg" alt="Foto Profil" class="profile-img">
-            
-            <h2 class="name">Marcel Hidayatullah Achlam</h2>
-            <p class="nim">NIM: 240010006</p>
-            <p class="address">Alamat: Denpasar, Bali</p>
-
-            <div class="section-title">
-                <h3>Daftar Tugas Sebelumnya</h3>
-            </div>
-            
-            <ul class="task-list">
-    <li><a href="Tugas Cloud Computing Dalam SaaS.pdf" target="_blank">🔗 Tugas: Cloud Computing Dalam SaaS</a></li>
-</ul>
-
-            <a href="#beranda" class="btn-back">↑ Kembali ke Atas</a>
+  <main>
+    <!-- Tab 1: Profil -->
+    <section id="profil" class="tab-content active">
+      <div class="profile-box">
+        <img src="foto.jpg" alt="Foto Profil">
+        <div class="profile-info">
+          <h1>Marcel Hidayatullah Achlam</h1>
+          <p><strong>NIM:</strong> 240010006</p>
+          <p><strong>Program Studi:</strong> Sistem Komputer</p>
+          <p><strong>Kampus:</strong> ITB STIKOM Bali</p>
+          <span class="badge">UTS Komputasi Awan</span>
         </div>
+      </div>
     </section>
+
+    <!-- Tab 2: Tugas PDF -->
+    <section id="tugas" class="tab-content">
+      <div class="pdf-box">
+        <h2>Tugas Cloud Computing Dalam SaaS</h2>
+        <p>Pratinjau dokumen tugas UTS Komputasi Awan:</p>
+        <iframe class="pdf-frame" src="Tugas Cloud Computing Dalam SaaS.pdf"></iframe>
+        <br>
+        <a class="btn-download" href="Tugas Cloud Computing Dalam SaaS.pdf" target="_blank">Buka / Download PDF</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2026 Marcel Hidayatullah Achlam - ITB STIKOM Bali
+  </footer>
+
+  <script>
+    function openTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
